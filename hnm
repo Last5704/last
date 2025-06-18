@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nút No trốn chạy</title>
+<style>
+  body {
+    height: 100vh;
+    margin: 0;
+    position: relative;
+    background-color: #f0f0f0;
+  }
+  #noButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+</style>
+</head>
+<body>
+
+<button id="noButton">No</button>
+
+<script>
+  const button = document.getElementById('noButton');
+
+  // Hàm để di chuyển nút đến vị trí ngẫu nhiên trong cửa sổ
+  function moveButton() {
+    const maxWidth = window.innerWidth - button.offsetWidth;
+    const maxHeight = window.innerHeight - button.offsetHeight;
+
+    const newLeft = Math.random() * maxWidth;
+    const newTop = Math.random() * maxHeight;
+
+    button.style.left = `${newLeft}px`;
+    button.style.top = `${newTop}px`;
+  }
+
+  // Lắng nghe sự kiện di chuyển chuột
+  document.addEventListener('mousemove', (e) => {
+    const rect = button.getBoundingClientRect();
+    const padding = 50; // khoảng cách để nút trốn
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    // Kiểm tra xem chuột có gần nút không
+    if (
+      mouseX >= rect.left - padding &&
+      mouseX <= rect.right + padding &&
+      mouseY >= rect.top - padding &&
+      mouseY <= rect.bottom + padding
+    ) {
+      moveButton();
+    }
+  });
+</script>
+
+</body>
+</html>
